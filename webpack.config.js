@@ -11,8 +11,8 @@ const browserConfig = {
   entry: './src/browser/index.js',
   output: {
     path: path.join(__dirname, 'public'),
-    filename: '[name].js',
-    chunkFilename: '[name].js',
+    filename: '[name]_[chunkhash:8].js',
+    chunkFilename: '[name]_[chunkhash:8].js',
     publicPath: '/'
   },
   mode: 'production',
@@ -152,6 +152,7 @@ const serverConfig = {
         use: 'babel-loader'
       },
       {
+        // 打包忽略less
         test: /\.less$/,
         use: 'ignore-loader'
       }

@@ -11,11 +11,13 @@ export default class App extends Component {
         <NavBar />
 
         <Switch>
-          {routes.map(({ path, exact, component: Component, ...rest }) => (
-            <Route key={path} path={path} exact={exact} render={(props) => (
-              <Component {...props} {...rest} />
-            )} />
-          ))}
+          { // render(props) {} props中有staticContext属性
+            routes.map(({ path, exact, component: Component, ...rest }) => (
+              <Route key={path} path={path} exact={exact} render={(props) => (
+                <Component {...props} {...rest} />
+              )} />
+            ))
+          }
           <Route render={(props) => <NoMatch {...props} /> } />
         </Switch>
         

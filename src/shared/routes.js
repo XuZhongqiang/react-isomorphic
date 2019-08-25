@@ -1,5 +1,5 @@
 import Home from './Home';
-import Grid from './Grid';
+import Grid from './Popular';
 
 import { fetchPopularRepos } from '../shared/api';
 
