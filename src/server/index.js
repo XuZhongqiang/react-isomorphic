@@ -17,7 +17,6 @@ app.use(cors())
 app.use(express.static("public"))
 
 app.get("*", (req, res, next) => {
-  console.log('aa');
   const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
 
   const promise = activeRoute.fetchInitialData
@@ -39,20 +38,20 @@ app.get("*", (req, res, next) => {
         .replace('<!-- HTML_PLACEHOLDER -->', markup)
       );
 
-    // res.send(`
-    //   <!DOCTYPE html>
-    //   <html>
-    //     <head>
-    //       <title>SSR with RR</title>
-    //       <script src="/bundle.js" defer></script>
-    //       <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
-    //     </head>
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>SSR with RR</title>
+          <script src="/bundle.js" defer></script>
+          <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
+        </head>
 
-    //     <body>
-    //       <div id="root">${markup}</div>
-    //     </body>
-    //   </html>
-    // `);
+        <body>
+          <div id="root">${markup}</div>
+        </body>
+      </html>
+    `);
   }).catch(next)
 })
 

@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 
@@ -12,10 +11,11 @@ const browserConfig = {
   entry: './src/browser/index.js',
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
     publicPath: '/'
   },
-  mode: 'development',
+  mode: 'production',
   devtool: 'inline-cheap-module-source-map',
   module: {
     rules: [
@@ -108,7 +108,7 @@ const browserConfig = {
       chunks: 'all',
       maxInitialRequests: Infinity,
       minSize: 30000,
-      minChunks: 2,
+      minChunks: 1,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
@@ -138,6 +138,7 @@ const serverConfig = {
   target: 'node',
   // 为了不把node_modules下的第三方模块打包进包里
   externals: [nodeExternals()],
+  mode: 'development',
   devtool: 'inline-cheap-module-source-map',
   output: {
     path: __dirname,
